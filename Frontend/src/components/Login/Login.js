@@ -23,7 +23,15 @@ const Login = () => {
           const response = await axios.post(apiUrl, data);
           const token = response.data;
           console.log(token);
-          navigate ('/')
+          if (token.role === 'user') {
+            navigate ('/')
+          }
+          else if (token.role === 'manager') {
+            navigate('/manager')
+          }
+          else if (token.role === 'finance') {
+            navigate('/finance')
+          }
         } catch (error) {
           console.error('Login failed:', error);
         }

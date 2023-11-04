@@ -1,22 +1,30 @@
-const jwt = require('jsonwebtoken');
+const jwt  = require('jsonwebtoken');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-function authMiddleware(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (!token) return res.status(401).send('Access denied. No token provided.');
-
-    try {
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN);
-        req.user = decoded;
-        next();
-    } catch (ex) {
-        res.status(400).send('Invalid token.');
+const authMiddleware = (req, res, next) => {
+  console.log("checkToken", req.headers.token);
+  const token = req.headers.token.split(" ")[1];
+  jwt.verify(token, process.env.ACCESS_TOKEN, function (err, user) {
+    if (err) {
+      return res.status(404).json({
+        message: "The authenication",
+        status: "ERROR",
+      });
     }
-}
+    const { payload } = user;
+    if (payload.role === "manager" || payload.role === "finance") {
+      next();
+    } else {
+      return res.status(404).json({
+        message: "Is not an admin",
+        status: "ERROR",
+      });
+    }
+  });
+};
 
 module.exports = {
-    authMiddleware
-}
+  authMiddleware,
+};

@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose')
 const routes = require('./routes')
 const bodyParser = require('body-parser')
+const cors = require('cors')
+
 
 dotenv.config()
 
@@ -28,7 +30,7 @@ app.get('/', (req, res) => {
 app.use(bodyParser.json())
 routes(app);
 
-
+app.use(cors())
 
 app.listen(port, () => {
     console.log('Server listening on port', + port);

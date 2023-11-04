@@ -4,20 +4,16 @@ const User = require('../models/UserModel')
 const createRequest = async (newRequest) => {
     const { createdBy, description, requestAmount } = newRequest
     try {
-        const createdRequest = await Request.create({
-            createdBy,
-            description,
-            requestAmount
-        })
-        if (createdRequest) {
-            return {
-                status: 'OK',
-                message: 'SUCCESS',
-                data: createdRequest
-            }
+        const request = new Request(newRequest)
+        await request.save();
+        return {
+            status: 'OK',
+            message: 'SUCCESS',
+            data: res.status(201).json(request)
         }
+
     } catch (e) {
-        throw e;
+        res.status(400).json({ error: err.message });
     }
 }
 
@@ -25,10 +21,26 @@ const createRequest = async (newRequest) => {
 const getAllRequestsOfAnUser = async (userId) => {
     try {
         const user = await User.findOne({
-            
+            userId
         })
+        let matchCondition = [{}];
+        if (user.role == 'user') {
+            matchCondition.push({
+                createdBy: userId
+            })
+        }
+        else if (user.role == 'manager') {
+            matchCondition.push({
+                status: ['ApprovedByManager', 'RejectedByManager', 'Pending']
+            })
+        }
+        else if (user.role == 'finance') {
+            matchCondition.push({
+                status: ['ApprovedByManager', 'ApprovedByFinance', 'RejectedByFinance']
+            })
+        }
         const requests = await Request.find({
-            createdBy: userId
+            $or: matchCondition
         })
         return {
             status: 'OK',
@@ -46,6 +58,6 @@ const getAllRequestsOfAnUser = async (userId) => {
 
 module.exports = {
     createRequest,
-    getAllRequestsOfUser
+    getAllRequestsOfAnUser
 }
 

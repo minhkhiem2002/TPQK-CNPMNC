@@ -25,7 +25,7 @@ const requestSchema = new mongoose.Schema(
             enum: ['Pending', 'ApprovedByManager', 'RejectedByManager', 'ApprovedByFinance', 'RejectedByFinance'],
             default: 'Pending'
         },
-        adminFeedback: {
+        managerFeedback: {
             type: String,
             trim: true,
             maxLength: 50

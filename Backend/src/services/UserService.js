@@ -56,12 +56,12 @@ const loginUser = async (userLogin) => {
             };
         }
         const access_token = await genneralAccessToken({
-            id: checkUser.id,
+            id: checkUser._id,
             role: checkUser.role
         });
 
         const refresh_token = await genneralRefreshToken({
-            id: checkUser.id,
+            id: checkUser._id,
             role: checkUser.role
         });
 
@@ -69,7 +69,9 @@ const loginUser = async (userLogin) => {
             status: 'OK',
             message: 'SUCCESS',
             access_token: access_token,
-            refresh_token: refresh_token
+            refresh_token: refresh_token,
+            userId: checkUser._id,
+            role: checkUser.role
         };
     } catch (e) {
         throw e;

@@ -23,6 +23,7 @@ const Login = () => {
           const response = await axios.post(apiUrl, data);
           const token = response.data;
           console.log(token);
+          localStorage.setItem('userId', token.userId);
           if (token.role === 'user') {
             navigate ('/')
           }

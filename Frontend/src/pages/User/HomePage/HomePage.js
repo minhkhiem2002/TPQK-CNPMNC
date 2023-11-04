@@ -6,16 +6,19 @@ import { Button, Form, Input } from "antd";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import TextArea from 'rc-textarea';
+import axios from 'axios';
 
 function SearchJob() {
     const [request, setRequest] = useState("")
     const [price, setPrice] = useState(0)
     const handlePostRequest = async (e) => {
         e.preventDefault()
-        const apiUrl = 'http://localhost:3001/api/user/login';
+        const userId = localStorage.getItem('userId')
+        const apiUrl = 'http://localhost:3001/api/request/';
         const data = {
-          request: request,
-          price: price
+          createdBy: userId,
+          description: request,
+          requestAmount: price
         }     
         try {
             const response = await axios.post(apiUrl, data);

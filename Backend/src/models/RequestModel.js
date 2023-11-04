@@ -14,15 +14,15 @@ const requestSchema = new mongoose.Schema(
         },
         managerId: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true,
+            // required: true,
         },
         financeId: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true,
+            // required: true,
         },
         status: {
             type: String,
-            enum: ['Pending', 'ApprovedByManager', 'RejectedByManager', 'ApprovedByFinance', 'RejectedByAdmin'],
+            enum: ['Pending', 'ApprovedByManager', 'RejectedByManager', 'ApprovedByFinance', 'RejectedByFinance'],
             default: 'Pending'
         },
         adminFeedback: {

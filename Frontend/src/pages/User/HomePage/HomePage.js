@@ -6,7 +6,7 @@ function SearchJob() {
     return (
         <>
         <Header/>
-        <p>Hello</p>
+        
         </>
     );
 }

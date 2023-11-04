@@ -1,15 +1,33 @@
 import { Button, Form, Input } from "antd";
-import React from "react";
+import React, { useState} from "react";
 import './index.scss';
 import { Link } from "react-router-dom";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 const Login = () => {
-    const handleLogin = (value) => {
-        console.log(value);
-    };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate()
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const apiUrl = 'http://localhost:3001/api/user/login';
+        const data = {
+          email: email,
+          password: password,
+        };
+    
+        try {
+          const response = await axios.post(apiUrl, data);
+          const token = response.data;
+          console.log(token);
+          navigate ('/')
+        } catch (error) {
+          console.error('Login failed:', error);
+        }
+      };
     return (
         
         <Container style = {{marginTop: "50px"}}> 
@@ -30,7 +48,6 @@ const Login = () => {
                         remember: true,
                     }}
                     className="wrapper__form"
-                    onFinish={handleLogin}
                     autoComplete="off"
                 >
                     <Form.Item
@@ -43,7 +60,7 @@ const Login = () => {
                         label="Email"
                         name="email"
                     >
-                        <Input placeholder="Email" />
+                        <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                     </Form.Item>
 
                     <Form.Item
@@ -56,7 +73,7 @@ const Login = () => {
                             },
                         ]}
                     >
-                        <Input.Password placeholder="Mật khẩu" />
+                        <Input.Password placeholder="Mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Item>
 
                     <Form.Item>

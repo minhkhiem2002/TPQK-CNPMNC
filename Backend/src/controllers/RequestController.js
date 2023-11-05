@@ -5,11 +5,14 @@ const RequestService = require('../services/RequestService');
 // CREATE
 const createRequest = async (req, res) => {
   try {
-    const request = new Request(req.body);
-    await request.save();
-    res.status(201).json(request);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const request = await RequestService.createRequest(req.body);
+    res.status(201).json({
+      status: 'OK',
+      message: 'CREATED REQUEST SUCCESSFULLY',
+      data: request
+    });
+  } catch (e) {
+    res.status(500).json({ message: e.message });
   }
 };
 
@@ -26,7 +29,7 @@ const getRequest = async (req, res) => {
 
 const getAllRequests = async (req, res) => {
   try {
-    const request = await RequestService.getAllRequestsOfAnUser(req.userId);
+    const request = await RequestService.getAllRequestsOfAnUser(req.body.userId);
     if (!request) throw Error('Request not found');
     res.status(200).json(request);
   } catch (err) {
@@ -59,9 +62,9 @@ const deleteRequest = async (req, res) => {
 
 
 module.exports = {
-    createRequest,
-    getRequest,
-    updateRequest,
-    deleteRequest,
-    getAllRequests
+  createRequest,
+  getRequest,
+  updateRequest,
+  deleteRequest,
+  getAllRequests
 }

@@ -2,28 +2,18 @@ const Request = require('../models/RequestModel')
 const User = require('../models/UserModel')
 
 const createRequest = async (newRequest) => {
-    const { createdBy, description, requestAmount } = newRequest
-    try {
-        const request = new Request(newRequest)
-        await request.save();
-        return {
-            status: 'OK',
-            message: 'SUCCESS',
-            data: res.status(201).json(request)
-        }
-
-    } catch (e) {
-        res.status(400).json({ error: err.message });
-    }
+    const { createdBy, description, requestAmount, dateOfRequest } = newRequest
+    const request = new Request(newRequest)
+    await request.save();
+    return request;
 }
-
 
 const getAllRequestsOfAnUser = async (userId) => {
     try {
         const user = await User.findOne({
-            userId
+            _id: userId
         })
-        let matchCondition = [{}];
+        let matchCondition = [];
         if (user.role == 'user') {
             matchCondition.push({
                 createdBy: userId
@@ -41,7 +31,7 @@ const getAllRequestsOfAnUser = async (userId) => {
         }
         const requests = await Request.find({
             $or: matchCondition
-        })
+        }).populate('createdBy', 'name email role -_id')
         return {
             status: 'OK',
             message: 'SUCCESS',

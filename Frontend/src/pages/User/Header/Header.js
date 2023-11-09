@@ -21,28 +21,7 @@ function Header() {
     }
     return (
         <Container className = "header">
-        <Navbar expand="lg" className="nav">
-            <Container>
-                <Navbar.Brand href="#home" className = "nav-item is-active">Home Logo</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                    <Nav.Link href="#home" className = "nav-item" >Home</Nav.Link>
-                    <Nav.Link href="#link" className = "nav-item" >About</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1" className = "nav-dropdown" >Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2" className = "nav-dropdown">
-                        Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3" className = "nav-dropdown">Something</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4" className = "nav-dropdown">
-                        Separated link
-                    </NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link href="#link" className = "nav-item" active-color = "rebeccapurple">Contact</Nav.Link>
-                </Nav>
-                </Navbar.Collapse>
+        
             {isLoggedIn ? (
                     <Dropdown className = "headerLogin">
                     
@@ -84,8 +63,7 @@ function Header() {
                 </NavLink>
                 </>
             )}
-                </Container>
-            </Navbar>
+                
         </Container>
     )
 }

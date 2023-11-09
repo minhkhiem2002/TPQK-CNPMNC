@@ -1,15 +1,38 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Register.scss";
 import { Button, Form, Input } from "antd";
 import { Link } from "react-router-dom";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
+import axios from 'axios'
 
 const Register = () => {
-    const handleRegister = (value) => {
-        console.log(value);
+    const [name,setName] = useState()
+    const [email,setEmail] = useState()
+    const [password,setPassword] = useState()
+    const [resetpassword,setResetPassword] = useState()
+    const [department,setDepartment] = useState()
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        const apiUrl = 'http://localhost:3001/api/user/signup';
+        const data = {
+            name: name,
+            email: email,
+            password: password,
+            resetpassword: resetpassword,
+            department: department
+          };
+          try {
+        const response = await axios.post(apiUrl, data)
+        const token = response.data;
+          console.log(token);
+          } catch (e) {
+            console.error(e)
+          }
     };
+    
+    console.log(name,email,password,resetpassword,department)
     return (
         <Container style = {{marginTop: "50px"}}>
             <Row>
@@ -52,7 +75,7 @@ const Register = () => {
                             },
                         ]}
                     >
-                        <Input placeholder="Họ và tên" />
+                        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Họ và tên" />
                     </Form.Item>
 
                     <Form.Item
@@ -65,7 +88,7 @@ const Register = () => {
                             },
                         ]}
                     >
-                        <Input placeholder="Email" />
+                        <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                     </Form.Item>
 
                     <Form.Item
@@ -78,7 +101,7 @@ const Register = () => {
                             },
                         ]}
                     >
-                        <Input.Password placeholder="Mật khẩu" />
+                        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mật khẩu" />
                     </Form.Item>
 
                     <Form.Item
@@ -91,14 +114,26 @@ const Register = () => {
                             },
                         ]}
                     >
-                        <Input.Password placeholder="Xác nhận mật khẩu" />
+                        <Input.Password value={resetpassword} onChange={(e) => setResetPassword(e.target.value)} placeholder="Xác nhận mật khẩu" />
                     </Form.Item>
-
+                    <Form.Item
+                        label="Department"
+                        name="department"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Vui lòng nhập department của bạn",
+                            },
+                        ]}
+                    >
+                        <Input value={department} onChange={(e) => setDepartment(e.target.value)} placeholder="Department" />
+                    </Form.Item>
                     <Form.Item>
                         <Button
                             type="primary"
                             htmlType="submit"
                             className="wrapper__register-button"
+                            onClick={handleRegister}
                         >
                             Đăng ký
                         </Button>

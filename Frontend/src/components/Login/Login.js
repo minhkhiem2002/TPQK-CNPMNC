@@ -24,15 +24,8 @@ const Login = () => {
           const token = response.data;
           console.log(token);
           localStorage.setItem('userId', token.userId);
-          if (token.role === 'user') {
+          localStorage.setItem('role', token.role);
             navigate ('/')
-          }
-          else if (token.role === 'manager') {
-            navigate('/manager')
-          }
-          else if (token.role === 'finance') {
-            navigate('/finance')
-          }
         } catch (error) {
           console.error('Login failed:', error);
         }

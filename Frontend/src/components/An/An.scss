@@ -1,0 +1,23 @@
+#header {
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-color: white;
+}
+  #header .pro-sidebar {
+    height: 130vh;
+  }
+  #header .pro-sidebar-inner {
+        background-color: white;
+        width: 200px;
+        margin-left: -30px;
+        box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15);
+      }
+    
+    
+    .headerLogin{
+        display: flex;
+    }
+    .headerUserAvatar{
+        border-radius: 25px;
+    }

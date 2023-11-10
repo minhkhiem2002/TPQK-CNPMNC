@@ -51,11 +51,11 @@ const loginUser = async (userLogin) => {
                 message: 'The email is not defined'
             };
         }
-        const comparePassword = bcrypt.compareSync(password, checkUser.password);
-        if (!comparePassword) {
+        // const comparePassword = bcrypt.compareSync(password, checkUser.password);
+        if (userLogin.password != checkUser.password) {
             return {
                 status: 'OK',
-                message: 'Password or is incorrect'
+                message: 'Password is incorrect'
             };
         }
         const access_token = await genneralAccessToken({

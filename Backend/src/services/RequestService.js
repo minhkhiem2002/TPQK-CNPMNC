@@ -48,6 +48,7 @@ const getAllRequestsOfAnUser = async (userId) => {
 
 module.exports = {
     createRequest,
-    getAllRequestsOfAnUser
+    getAllRequestsOfAnUser,
+    
 }
 

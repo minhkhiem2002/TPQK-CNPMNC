@@ -11,7 +11,7 @@ const Register = () => {
     const [name,setName] = useState()
     const [email,setEmail] = useState()
     const [password,setPassword] = useState()
-    const [resetpassword,setResetPassword] = useState()
+    const [confirmPassword,setConfirmPassword] = useState()
     const [department,setDepartment] = useState()
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -20,7 +20,7 @@ const Register = () => {
             name: name,
             email: email,
             password: password,
-            resetpassword: resetpassword,
+            confirmPassword: confirmPassword,
             department: department
           };
           try {
@@ -32,7 +32,7 @@ const Register = () => {
           }
     };
     
-    console.log(name,email,password,resetpassword,department)
+    console.log(name,email,password,confirmPassword,department)
     return (
         <Container style = {{marginTop: "50px"}}>
             <Row>
@@ -114,7 +114,7 @@ const Register = () => {
                             },
                         ]}
                     >
-                        <Input.Password value={resetpassword} onChange={(e) => setResetPassword(e.target.value)} placeholder="Xác nhận mật khẩu" />
+                        <Input.Password value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Xác nhận mật khẩu" />
                     </Form.Item>
                     <Form.Item
                         label="Department"

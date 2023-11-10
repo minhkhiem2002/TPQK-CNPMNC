@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,10 +24,16 @@ const Login = () => {
         try {
           const response = await axios.post(apiUrl, data);
           const token = response.data;
-          console.log(token);
-          localStorage.setItem('userId', token.userId);
-          localStorage.setItem('role', token.role);
-            navigate ('/')
+          if (token.status == '401'){
+            toast.error('Login Failure!');
+          } else {
+            console.log(token);
+            localStorage.setItem('userId', token.userId);
+            localStorage.setItem('role', token.role);
+            toast.success('Login Success');
+              navigate ('/')
+          }
+          
         } catch (error) {
           console.error('Login failed:', error);
         }
@@ -33,6 +41,7 @@ const Login = () => {
     return (
         
         <Container style = {{marginTop: "50px"}}> 
+         <ToastContainer />
             <Row>
                 <Col  >
             <h2 className="wrapper__register-title" style = {{marginLeft: "150px"}}>Đăng nhập</h2>
@@ -87,6 +96,7 @@ const Login = () => {
                             onClick={handleLogin}
                         >
                             Đăng nhập
+                           
                         </Button>
                     </Form.Item>
                 </Form>

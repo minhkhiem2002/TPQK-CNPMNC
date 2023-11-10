@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt')
 
 const createUser = (newUser) => {
     return new Promise(async (resolve, reject) => {
-        const { name, email, password, confirmPassword, department, role } = newUser
+        const { name, email, password, confirmPassword, department} = newUser
         try {
             const checkUser = await User.findOne({
                 email: email
             })
             if (checkUser !== null) {
                 resolve({
-                    status: 'OK',
+                    status: '401',
                     message: 'The email is already'
                 })
             }
@@ -22,12 +22,13 @@ const createUser = (newUser) => {
                 name,
                 email,
                 password,
+                confirmPassword,
                 department,
                 role: 'user'
             })
             if (createdUser) {
                 resolve({
-                    status: 'OK',
+                    status: '200',
                     message: 'SUCCESS',
                     data: createdUser
                 })
@@ -47,14 +48,16 @@ const loginUser = async (userLogin) => {
         });
         if (checkUser === null) {
             return {
-                status: 'OK',
+                status: 401,
                 message: 'The email is not defined'
             };
         }
-        const comparePassword = bcrypt.compareSync(password, checkUser.password);
+        const comparePassword = checkUser.password == password ? 1 : 0;
+        // const comparePassword = bcrypt.compareSync(password, checkUser.password);
+        console.log(comparePassword)
         if (!comparePassword) {
             return {
-                status: 'OK',
+                status: 401,
                 message: 'Password or is incorrect'
             };
         }
@@ -69,7 +72,7 @@ const loginUser = async (userLogin) => {
         });
 
         return {
-            status: 'OK',
+            status: 200,
             message: 'SUCCESS',
             access_token: access_token,
             refresh_token: refresh_token,

@@ -7,17 +7,17 @@ const createUser = async (req, res) => {
         if (!name || !email || !password || !confirmPassword || !department)
         {
             return res.status(200).json({
-                status: 'ERR',
+                status: 401,
                 message: 'The input is required'
             })
         } else if(!isCheckEmail) {
             return res.status(200).json({
-                status: 'ERR',
+                status: 401,
                 message: 'The input is email'
             })
         } else if(password !== confirmPassword){
             return res.status(200).json({
-                status: 'ERR',
+                status: 401,
                 message: 'The input is equal confirmPassword'
             })
         }
@@ -37,12 +37,12 @@ const loginUser = async (req, res) => {
     const isCheckEmail = reg.test(email);
     if (!email || !password) {
       return res.status(200).json({
-        status: "ERR",
+        status: 401,
         message: "The input is required",
       });
     } else if (!isCheckEmail) {
       return res.status(200).json({
-        status: "ERR",
+        status: 401,
         message: "The input is email",
       });
     }

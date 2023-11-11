@@ -35,7 +35,7 @@ const createUser = (newUser) => {
             }
 
         } catch (e) {
-            reject(e);
+            throw e;
         }
     })
 }
@@ -85,6 +85,7 @@ const loginUser = async (userLogin) => {
 };
 
 const updateUser = async (id, data) => {
+    return new Promise(async (resolve, reject) => {
     try {
         const checkUser = await User.findOne({
             _id: id
@@ -92,20 +93,21 @@ const updateUser = async (id, data) => {
         // console.log(checkUser)
         if (checkUser === null) {
             return resolve({
-                status: 'OK',
+                status: 401,
                 message: 'The user is not undefined'
             })
         }
         const updateUser = await User.findByIdAndUpdate(id, data, { new: true })
         console.log(updateUser)
         return resolve({
-            status: 'OK',
+            status: 200,
             message: 'SUCCESS',
             data: updateUser
         })
     } catch (e) {
-        reject(e);
+        reject(e)
     }
+})
 }
 
 const deleteUser = (id) => {
@@ -127,7 +129,7 @@ const deleteUser = (id) => {
                 message: 'Delete User SUCCESS',
             })
         } catch (e) {
-            reject(e);
+            throw e;
         }
     })
 }

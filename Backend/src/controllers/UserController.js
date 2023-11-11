@@ -35,7 +35,9 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const isCheckEmail = reg.test(email);
+    console.log("hello")
     if (!email || !password) {
+      
       return res.status(200).json({
         status: 401,
         message: "The input is required",

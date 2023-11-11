@@ -52,12 +52,14 @@ const loginUser = async (userLogin) => {
                 message: 'The email is not defined'
             };
         }
+
         const comparePassword = checkUser.password == password ? 1 : 0;
         console.log(comparePassword)
         if (!comparePassword) {
             return {
                 status: 401,
                 message: 'Password or is incorrect'
+
             };
         }
         const access_token = await genneralAccessToken({

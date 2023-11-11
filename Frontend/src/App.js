@@ -1,8 +1,7 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import { Navigate } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom"
 import './App.css';
 import React from 'react';
-import HomePage from './pages/User/HomePage/HomePage'
+import HomePage from './pages/Manager/HomePage/HomePage'
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import { useState } from "react";

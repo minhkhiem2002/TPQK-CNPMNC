@@ -4,6 +4,7 @@ const requestSchema = new mongoose.Schema(
     {
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
             required: true,
         },
         description: {
@@ -38,7 +39,11 @@ const requestSchema = new mongoose.Schema(
         requestAmount: {
             type: Number,
             required: true,
-        }
+        },
+        dateOfRequest: {
+            type: Date,
+            required: true
+        },
     },
     { timestamps: true }
 )

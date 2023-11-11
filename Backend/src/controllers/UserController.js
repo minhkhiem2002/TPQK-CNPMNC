@@ -7,17 +7,17 @@ const createUser = async (req, res) => {
         if (!name || !email || !password || !confirmPassword || !department)
         {
             return res.status(200).json({
-                status: 'ERR',
+                status: 401,
                 message: 'The input is required'
             })
         } else if(!isCheckEmail) {
             return res.status(200).json({
-                status: 'ERR',
+                status: 401,
                 message: 'The input is email'
             })
         } else if(password !== confirmPassword){
             return res.status(200).json({
-                status: 'ERR',
+                status: 401,
                 message: 'The input is equal confirmPassword'
             })
         }
@@ -39,12 +39,12 @@ const loginUser = async (req, res) => {
     if (!email || !password) {
       
       return res.status(200).json({
-        status: "ERR",
+        status: 401,
         message: "The input is required",
       });
     } else if (!isCheckEmail) {
       return res.status(200).json({
-        status: "ERR",
+        status: 401,
         message: "The input is email",
       });
     }
@@ -69,13 +69,14 @@ const updateUser = async (req, res) => {
     console.log(userId);
     if (!userId) {
       return res.status(200).json({
-        status: "error",
+        status: 401,
         message: "The user is required",
       });
     }
     const response = await UserService.updateUser(userId, data);
     return res.status(200).json(response);
   } catch (e) {
+    console.error(e);
     return res.status(404).json({
       message: e,
     });

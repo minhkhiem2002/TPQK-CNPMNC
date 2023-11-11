@@ -8,6 +8,7 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import AccountMenu from "../../components/common/AccountMenu";
 
 const Topbar = () => {
   const theme = useTheme();
@@ -44,7 +45,7 @@ const Topbar = () => {
           <SettingsOutlinedIcon />
         </IconButton>
         <IconButton>
-          <PersonOutlinedIcon />
+          <AccountMenu />
         </IconButton>
       </Box>
     </Box>

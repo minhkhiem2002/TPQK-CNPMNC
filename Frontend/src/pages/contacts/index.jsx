@@ -75,11 +75,10 @@ function ModalBox(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Create Request</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            To send a request please fill in the form
           </DialogContentText>
           <TextField
             autoFocus
@@ -198,8 +197,8 @@ const Contacts = () => {
             <Topbar setIsSidebar={setIsSidebar} />
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="REQUEST"
+        subtitle="List of Request"
       />
       <Box
         m="40px 0 0 0"

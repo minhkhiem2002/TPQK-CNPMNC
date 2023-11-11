@@ -95,7 +95,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                  Bach Khoa
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -122,10 +122,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
+                  TQPK
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  HCMUT K20
                 </Typography>
               </Box>
             </Box>
@@ -152,7 +152,7 @@ const Sidebar = () => {
                 <>
                   
                     <Item
-                    title="Contacts Information"
+                    title="Request"
                     to="/contacts"
                     icon={<ContactsOutlinedIcon />}
                     selected={selected}
@@ -173,7 +173,7 @@ const Sidebar = () => {
                     Pages
                   </Typography>
                   <Item
-                    title="Profile Form"
+                    title="Profile"
                     to="/form"
                     icon={<PersonOutlinedIcon />}
                     selected={selected}
@@ -226,7 +226,7 @@ const Sidebar = () => {
                   Pages
                 </Typography>
                 <Item
-                  title="Profile Form"
+                  title="Profile"
                   to="/form"
                   icon={<PersonOutlinedIcon />}
                   selected={selected}

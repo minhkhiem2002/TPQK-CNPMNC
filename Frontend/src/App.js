@@ -28,18 +28,10 @@ function App() {
   return (
     <>
           <Routes>
-              <Route path = "/home" element = {<HomePage/>}/>
+
               <Route path = "/login" element = {<Login/>}/>
               <Route path = "/register" element = {<Register/>}/>
-          </Routes>
-    {/* <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} /> */}
-            <Routes>
+
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />
@@ -51,13 +43,8 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/geography" element={<Geography />} />
-              
-              <Route path="/an" element = {<An/>}/>
+
             </Routes>
-          {/* </main>
-        </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider> */}
     </>
   );
 }

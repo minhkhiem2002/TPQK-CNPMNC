@@ -4,14 +4,14 @@ const bcrypt = require('bcrypt')
 
 const createUser = (newUser) => {
     return new Promise(async (resolve, reject) => {
-        const { name, email, password, confirmPassword, department, role } = newUser
+        const { name, email, password, confirmPassword, department} = newUser
         try {
             const checkUser = await User.findOne({
                 email: email
             })
             if (checkUser !== null) {
                 resolve({
-                    status: 'OK',
+                    status: '401',
                     message: 'The email is already'
                 })
             }
@@ -22,19 +22,20 @@ const createUser = (newUser) => {
                 name,
                 email,
                 password,
+                confirmPassword,
                 department,
                 role: 'user'
             })
             if (createdUser) {
                 resolve({
-                    status: 'OK',
+                    status: '200',
                     message: 'SUCCESS',
                     data: createdUser
                 })
             }
 
         } catch (e) {
-            reject(e);
+            throw e;
         }
     })
 }
@@ -47,15 +48,18 @@ const loginUser = async (userLogin) => {
         });
         if (checkUser === null) {
             return {
-                status: 'OK',
+                status: 401,
                 message: 'The email is not defined'
             };
         }
-        // const comparePassword = bcrypt.compareSync(password, checkUser.password);
-        if (userLogin.password != checkUser.password) {
+
+        const comparePassword = checkUser.password == password ? 1 : 0;
+        console.log(comparePassword)
+        if (!comparePassword) {
             return {
-                status: 'OK',
-                message: 'Password is incorrect'
+                status: 401,
+                message: 'Password or is incorrect'
+
             };
         }
         const access_token = await genneralAccessToken({
@@ -69,7 +73,7 @@ const loginUser = async (userLogin) => {
         });
 
         return {
-            status: 'OK',
+            status: 200,
             message: 'SUCCESS',
             access_token: access_token,
             refresh_token: refresh_token,
@@ -82,6 +86,7 @@ const loginUser = async (userLogin) => {
 };
 
 const updateUser = async (id, data) => {
+    return new Promise(async (resolve, reject) => {
     try {
         const checkUser = await User.findOne({
             _id: id
@@ -89,20 +94,21 @@ const updateUser = async (id, data) => {
         // console.log(checkUser)
         if (checkUser === null) {
             return resolve({
-                status: 'OK',
+                status: 401,
                 message: 'The user is not undefined'
             })
         }
         const updateUser = await User.findByIdAndUpdate(id, data, { new: true })
         console.log(updateUser)
         return resolve({
-            status: 'OK',
+            status: 200,
             message: 'SUCCESS',
             data: updateUser
         })
     } catch (e) {
-        reject(e);
+        reject(e)
     }
+})
 }
 
 const deleteUser = (id) => {
@@ -124,7 +130,7 @@ const deleteUser = (id) => {
                 message: 'Delete User SUCCESS',
             })
         } catch (e) {
-            reject(e);
+            throw e;
         }
     })
 }

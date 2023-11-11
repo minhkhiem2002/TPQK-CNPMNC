@@ -45,6 +45,7 @@ const updateRequestStatus = async (req, res) => {
   try {
     const { userId, status, feedback } = req.body;
     const requestId = req.params.id;
+    
     const user = await User.findById(userId);
     if (!user) {
       throw new Error('User not found');
@@ -55,13 +56,13 @@ const updateRequestStatus = async (req, res) => {
         throw new Error('User is not authorized to update request status');
       case 'manager':
         if (status != 'Pending') {
-          throw new Error('This request is already approved/rejected');
+          // throw new Error('This request is already approved/rejected');
         }
         update.managerId = userId;
         break;
       case 'finance':
         if(status == 'RejectedByFinance' || status == 'ApprovedByFinance'){
-          throw new Error('This request is already checked by finance');
+          // throw new Error('This request is already checked by finance');
         }
         update.financeId = userId;
         break;

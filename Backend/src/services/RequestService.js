@@ -2,7 +2,7 @@ const Request = require('../models/RequestModel')
 const User = require('../models/UserModel')
 
 const createRequest = async (newRequest) => {
-    const { createdBy, description, requestAmount, dateOfRequest } = newRequest
+    const { createdBy, description, requestAmount } = newRequest
     const request = new Request(newRequest)
     await request.save();
     return request;
@@ -13,6 +13,7 @@ const getAllRequestsOfAnUser = async (userId) => {
         const user = await User.findOne({
             _id: userId
         })
+        console.log(user)
         let matchCondition = [];
         if (user.role == 'user') {
             matchCondition.push({

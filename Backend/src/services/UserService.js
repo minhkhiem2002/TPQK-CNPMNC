@@ -53,7 +53,6 @@ const loginUser = async (userLogin) => {
             };
         }
         const comparePassword = checkUser.password == password ? 1 : 0;
-        // const comparePassword = bcrypt.compareSync(password, checkUser.password);
         console.log(comparePassword)
         if (!comparePassword) {
             return {

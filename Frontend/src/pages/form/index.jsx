@@ -120,7 +120,6 @@ const Form = () => {
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
-
   );
 };
 

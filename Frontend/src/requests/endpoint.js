@@ -1,1 +1,1 @@
-export const backendURL = "http://localhost:3001"
+export const backendURL = "https://backend-cnpm-jgc5.onrender.com"

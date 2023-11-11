@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import "./ListRequest.scss";
+import "./FRequest.scss";
 import Container from "react-bootstrap/esm/Container";
 import { Button, Modal } from "react-bootstrap";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../../../theme";
-import Topbar from "../../../pages/global/Topbar";
-import Sidebar from "../../../pages/global/Sidebar";
-import AdminRequest from "../../../requests/admin-request";
-
+import Topbar from "../../global/Topbar";
+import Sidebar from "../../global/Sidebar";
+import FinanceRequest from "../../../requests/finance-request";
 const initialData = [
   { name: "John Doe", expense: 100, reason: "Business lunch" },
   { name: "Jane Doe", expense: 200, reason: "Office supplies" },
 ];
 
-function ListRequest() {
+function FRequest() {
   const [data, setData] = useState(initialData);
   const [show, setShow] = useState(false);
   const [comment, setComment] = useState("");
@@ -29,10 +28,10 @@ function ListRequest() {
     setShow(true);
   };
   const fetchRequests = async () => {
-    let data = await AdminRequest.getAllRequest();
-    console.log(data);
+    let data = await FinanceRequest.getAllRequest();
+    console.log("data 123",data);
     setData(
-      data.map((_record) => ({
+      data?.map((_record) => ({
         id: _record._id,
         name: _record.createdBy.name,
         expense: _record.requestAmount,
@@ -41,7 +40,7 @@ function ListRequest() {
         reason: _record.description,
         managerFeedback: _record.managerFeedback,
         financeFeedback: _record.financeFeedback,
-      }))
+      })) ?? []
     );
   };
   useEffect(() => {
@@ -50,7 +49,7 @@ function ListRequest() {
   const handleApprove = async () => {
     if (selectedExpense) {
       setIsLoading(true);
-      await AdminRequest.updateStatus(selectedExpense.id, "approve", comment);
+      await FinanceRequest.updateStatus(selectedExpense.id, "approve", comment);
       await fetchRequests();
       handleClose();
       setIsLoading(false);
@@ -60,13 +59,12 @@ function ListRequest() {
   const handleReject = async () => {
     if (selectedExpense) {
       setIsLoading(true);
-      await AdminRequest.updateStatus(selectedExpense.id, "reject", comment);
+      await FinanceRequest.updateStatus(selectedExpense.id, "reject", comment);
       await fetchRequests();
       handleClose();
       setIsLoading(false);
     }
   };
-
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={color}>
@@ -132,23 +130,23 @@ function ListRequest() {
                     )}
                   </div>
                 )}
-              </Modal.Body>
-              {!selectedExpense?.managerFeedback &&
-                !selectedExpense?.financeFeedback && (
-                  <Modal.Footer>
-                    <Button variant="success" onClick={handleApprove}>
-                      {!isLoading ? "Approve" : "waiting"}
-                    </Button>
-                    <Button variant="danger" onClick={handleReject}>
-                      {!isLoading ? "Reject" : "waiting"}
-                    </Button>
-                    <input
-                      type="text"
-                      placeholder="Comment"
-                      onChange={(e) => setComment(e.target.value)}
-                    />
-                  </Modal.Footer>
-                )}
+              </Modal.Body>{" "}
+              
+              {localStorage.getItem("role") == "finance" && (
+                <Modal.Footer>
+                  <Button variant="success" onClick={handleApprove}>
+                    {!isLoading ? "Approve" : "waiting"}
+                  </Button>
+                  <Button variant="danger" onClick={handleReject}>
+                    {!isLoading ? "Reject" : "waiting"}
+                  </Button>
+                  <input
+                    type="text"
+                    placeholder="Comment"
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                </Modal.Footer>
+              )}
             </Modal>
           </main>
         </div>
@@ -157,14 +155,14 @@ function ListRequest() {
   );
 }
 
-export default ListRequest;
+export default FRequest;
 
 const TagStatus = ({ status }) => {
   const getStyles = (status) => {
     if (status == "Pending") {
       return { backgroundColor: "#FEF9E1", color: "#E8BA02" };
     } else if (status == "ApprovedByManager" || status == "ApprovedByFinance") {
-      return { backgroundColor: "#FFEBEB", color: "#DC1F18" };
+      return { backgroundColor: "#c7ffd4", color: "#16db44" };
     } else if (status == "RejectedByManager" || status == "RejectedByFinance") {
       return { backgroundColor: "#FFEBEB", color: "#DC1F18" };
     } else {

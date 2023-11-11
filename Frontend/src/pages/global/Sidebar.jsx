@@ -43,19 +43,10 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Dashboard");
   const userRole = localStorage.getItem("role");
   console.log(userRole);
-  const [isUser, setIsUser] = useState(false);
-  const [isManager, setIsManager] = useState(false);
-  const [isFinancial, setIsFinancial] = useState(false);
+  const [isUser, setIsUser] = useState(userRole === 'user' ? true : false);
+  const [isManager, setIsManager] = useState(userRole === 'manager' ? true : false);
+  const [isFinancial, setIsFinancial] = useState(userRole === 'financial' ? true : false);
 
-  // if (userRole === 'user') {
-  //   setIsUser(true);
-  // }
-  // else if (userRole === 'manager') {
-  //   setIsManager(true)
-  // }
-  // else {
-  //   setIsFinancial(true);
-  // }
 
   return (
     <Box
@@ -153,101 +144,100 @@ const Sidebar = () => {
                 {userRole === "user" ? (
                   <>
                     <Item
-                    title="Request"
-                    to="/contacts"
-                    icon={<ContactsOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Invoices Balances"
-                    to="/invoices"
-                    icon={<ReceiptOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    Pages
-                  </Typography>
-                  <Item
-                    title="Profile"
-                    to="/form"
-                    icon={<PersonOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="Calendar"
-                    to="/calendar"
-                    icon={<CalendarTodayOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Item
-                    title="FAQ Page"
-                    to="/faq"
-                    icon={<HelpOutlineOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  
-                </>
-              ) : userRole === 'manager' ? (
-                <>
-                <Item
-                  title="Manage Team"
-                  to="/team"
-                  icon={<PeopleOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Item
-                  title="Contacts Information"
-                  to="/contacts"
-                  icon={<ContactsOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Item
-                  title="Manager Request"
-                  to="/adminRequest"
-                  icon={<ReceiptOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Typography
-                  variant="h6"
-                  color={colors.grey[300]}
-                  sx={{ m: "15px 0 5px 20px" }}
-                >
-                  Pages
-                </Typography>
-                <Item
-                  title="Profile"
-                  to="/form"
-                  icon={<PersonOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Item
-                  title="Calendar"
-                  to="/calendar"
-                  icon={<CalendarTodayOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                <Item
-                  title="FAQ Page"
-                  to="/faq"
-                  icon={<HelpOutlineOutlinedIcon />}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-                  <Typography
+                      title="Request"
+                      to="/contacts"
+                      icon={<ContactsOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Item
+                      title="Invoices Balances"
+                      to="/invoices"
+                      icon={<ReceiptOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Typography
+                      variant="h6"
+                      color={colors.grey[300]}
+                      sx={{ m: "15px 0 5px 20px" }}
+                    >
+                      Pages
+                    </Typography>
+                    <Item
+                      title="Profile"
+                      to="/form"
+                      icon={<PersonOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Item
+                      title="Calendar"
+                      to="/calendar"
+                      icon={<CalendarTodayOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Item
+                      title="FAQ Page"
+                      to="/faq"
+                      icon={<HelpOutlineOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                  </>
+                ) : userRole === "manager" ? (
+                  <>
+                    <Item
+                      title="Manage Team"
+                      to="/team"
+                      icon={<PeopleOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Item
+                      title="Contacts Information"
+                      to="/contacts"
+                      icon={<ContactsOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Item
+                      title="Manager Request"
+                      to="/adminRequest"
+                      icon={<ReceiptOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Typography
+                      variant="h6"
+                      color={colors.grey[300]}
+                      sx={{ m: "15px 0 5px 20px" }}
+                    >
+                      Pages
+                    </Typography>
+                    <Item
+                      title="Profile"
+                      to="/form"
+                      icon={<PersonOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Item
+                      title="Calendar"
+                      to="/calendar"
+                      icon={<CalendarTodayOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Item
+                      title="FAQ Page"
+                      to="/faq"
+                      icon={<HelpOutlineOutlinedIcon />}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                    <Typography
                       variant="h6"
                       color={colors.grey[300]}
                       sx={{ m: "15px 0 5px 20px" }}
@@ -283,7 +273,7 @@ const Sidebar = () => {
                       setSelected={setSelected}
                     />
                   </>
-                ) : userRole === "financial" ? (
+                ) : userRole === "finance" ? (
                   <>
                     <Item
                       title="Manage Team"
@@ -300,8 +290,8 @@ const Sidebar = () => {
                       setSelected={setSelected}
                     />
                     <Item
-                      title="Invoices Balances"
-                      to="/invoices"
+                      title="Finance Request"
+                      to="/financeRequest"
                       icon={<ReceiptOutlinedIcon />}
                       selected={selected}
                       setSelected={setSelected}

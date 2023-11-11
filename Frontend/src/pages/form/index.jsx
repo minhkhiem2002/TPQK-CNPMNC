@@ -15,12 +15,6 @@ const Form = () => {
   const [role, setRole] = useState()
   const [email, setEmail] = useState()
   const [department, setDepartment] = useState()
-  const initialValues = {
-    name: name,
-    role: role,
-    email: email,
-    department: department,
-  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,7 +32,22 @@ const Form = () => {
 
     fetchData();
   }, []);
-  console.log(initialValues)
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    try {
+    const userId = localStorage.getItem("userId");
+    const data = {
+      name,
+      role,
+      email,
+      department
+    }
+    const response = await axios.put(`http://localhost:3001/api/user/update-user/${userId}`,data);
+    console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const handleFormSubmit =  (values) => {
@@ -59,20 +68,6 @@ const Form = () => {
     <Box m="20px">
       <Header title="Profile" subtitle="View your Persional Information" />
 
-      <Formik
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-        validationSchema={checkoutSchema}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-        }) => (
-          <form onSubmit={handleSubmit}>
             <Box
               display="grid"
               gap="30px"
@@ -82,62 +77,44 @@ const Form = () => {
               }}
             >
               <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Name"
-                onBlur={handleBlur}
+                required
+                id="outlined-required"
+                
+                value = {name}
                 onChange={(e) => setName(e.target.value)}
-                name= {name}
-                error={!!touched.name && !!errors.name}
-                helperText={touched.name && errors.name}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Role"
-                onBlur={handleBlur}
+                required
+                id="outlined-required"
+                
+                value = {role}
                 onChange= {(e) => setRole(e.target.value)}
-                name="role"
-                error={!!touched.role && !!errors.role}
-                helperText={touched.role && errors.role}
                 sx={{ gridColumn: "span 2" }}
               />
               <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Email"
-                onBlur={handleBlur}
+                required
+                id="outlined-required"
+                
+                value = {email}
                 onChange={(e) => setEmail(e.target.value)}
-                name="email"
-                error={!!touched.email && !!errors.email}
-                helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
-                fullWidth
-                variant="filled"
-                type="text"
-                label="Department"
-                onBlur={handleBlur}
+                required
+                id="outlined-required"
+               
+                value = {department}
                 onChange={e => setDepartment(e.target.value)}
-                name="department"
-                error={!!touched.department && !!errors.department}
-                helperText={touched.department && errors.department}
                 sx={{ gridColumn: "span 4" }}
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <Button onClick = {handleSubmit} color="secondary" variant="contained">
                 Update Information
               </Button>
             </Box>
-          </form>
-        )}
-      </Formik>
+          
     </Box>
     </main>
         </div>
@@ -148,12 +125,6 @@ const Form = () => {
 };
 
 
-const checkoutSchema = yup.object().shape({
-  name: yup.string().required("required"),
-  role: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  department: yup.string().required("required"),
-});
 
 
 export default Form;

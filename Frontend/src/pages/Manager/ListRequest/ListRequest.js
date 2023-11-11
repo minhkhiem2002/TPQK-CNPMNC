@@ -164,7 +164,7 @@ const TagStatus = ({ status }) => {
     if (status == "Pending") {
       return { backgroundColor: "#FEF9E1", color: "#E8BA02" };
     } else if (status == "ApprovedByManager" || status == "ApprovedByFinance") {
-      return { backgroundColor: "#FFEBEB", color: "#DC1F18" };
+      return { backgroundColor: "#c7ffd4", color: "#16db44" };
     } else if (status == "RejectedByManager" || status == "RejectedByFinance") {
       return { backgroundColor: "#FFEBEB", color: "#DC1F18" };
     } else {

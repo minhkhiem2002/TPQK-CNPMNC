@@ -11,6 +11,7 @@ import Sidebar from "../../pages/global/Sidebar";
 import { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import axios from 'axios'
+import { backendURL } from "../../requests/endpoint";
 import {
   Button,
   Select,
@@ -39,7 +40,7 @@ function ModalBox(props) {
     setOpen(false);
     e.preventDefault()
     const userId = localStorage.getItem('userId')
-    const apiUrl = 'http://localhost:3001/api/request/';
+    const apiUrl = backendURL+'/api/request/';
     const datapost = {
       createdBy: userId,
       description: state.dname,
@@ -50,7 +51,7 @@ function ModalBox(props) {
         const token = response.data;
         console.log(token);
         
-          await axios.get(`http://localhost:3001/api/request/${userId}`);
+          await axios.get(backendURL + `/api/request/${userId}`);
         
       } catch (error) {
         console.error('Login failed:', error);
@@ -134,7 +135,7 @@ const Contacts = () => {
   const [color, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
 
-  const columns = ["Id", "Name", "Provider", "Status"];
+  const columns = ["Id", "Description", "Expense", "Status"];
   const [data, setData] = useState([]);
 
   let id = 0;
@@ -256,3 +257,23 @@ const Contacts = () => {
 };
 
 export default Contacts;
+const TagStatus = ({ status }) => {
+  const getStyles = (status) => {
+    if (status == "Pending") {
+      return { backgroundColor: "#FEF9E1", color: "#E8BA02" };
+    } else if (status == "ApprovedByManager" || status == "ApprovedByFinance") {
+      return { backgroundColor: "#c7ffd4", color: "#16db44" };
+    } else if (status == "RejectedByManager" || status == "RejectedByFinance") {
+      return { backgroundColor: "#FFEBEB", color: "#DC1F18" };
+    } else {
+      return { backgroundColor: "#FEF9E1", color: "#E8BA02" };
+    }
+  };
+  return (
+    <span
+      style={{ ...getStyles(status), padding: "4px 8px", borderRadius: "8px" }}
+    >
+      {status}
+    </span>
+  );
+};

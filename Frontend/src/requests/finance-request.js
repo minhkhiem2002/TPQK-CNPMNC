@@ -4,9 +4,7 @@ export default class FinanceRequest{
     static getAllRequest = async () => {
         try {
             const userId = localStorage.getItem("userId");
-            let res = await axios.post(`${backendURL}/api/request/getRequests`,{
-                userId :userId
-            })
+            let res = await axios.get(`${backendURL}/api/request/`+userId)
             if (res.data){
                 return res.data.data
             }

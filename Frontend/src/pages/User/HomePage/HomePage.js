@@ -14,7 +14,7 @@ function SearchJob() {
     const handlePostRequest = async (e) => {
         e.preventDefault()
         const userId = localStorage.getItem('userId')
-        const apiUrl = 'http://localhost:3001/api/request/';
+        const apiUrl = backendURL + '/api/request/';
         const data = {
           createdBy: userId,
           description: request,

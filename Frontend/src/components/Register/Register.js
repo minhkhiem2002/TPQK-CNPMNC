@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import axios from 'axios'
-
+import { backendURL } from "../../requests/endpoint";
 const Register = () => {
     const [name,setName] = useState()
     const [email,setEmail] = useState()
@@ -15,7 +15,7 @@ const Register = () => {
     const [department,setDepartment] = useState()
     const handleRegister = async (e) => {
         e.preventDefault();
-        const apiUrl = 'http://localhost:3001/api/user/signup';
+        const apiUrl = backendURL+ '/api/user/signup';
         const data = {
             name: name,
             email: email,

@@ -9,7 +9,7 @@ import Topbar from "../../pages/global/Topbar";
 import Sidebar from "../../pages/global/Sidebar";
 import { useState, useEffect } from "react";
 import axios from 'axios';
-
+import { backendURL } from "../../requests/endpoint";
 const Form = () => {
   const [name,setName] = useState()
   const [role, setRole] = useState()
@@ -19,7 +19,7 @@ const Form = () => {
     const fetchData = async () => {
       try {
         const userId = localStorage.getItem("userId");
-        const response = await axios.get(`http://localhost:3001/api/user/get-detail/${userId}`);
+        const response = await axios.get(backendURL + `/api/user/get-detail/${userId}`);
         setName(response.data.data.name)
         setRole(response.data.data.role)
         setEmail(response.data.data.email)
@@ -42,7 +42,7 @@ const Form = () => {
       email,
       department
     }
-    const response = await axios.put(`http://localhost:3001/api/user/update-user/${userId}`,data);
+    const response = await axios.put(backendURL + `/api/user/update-user/${userId}`,data);
     console.log(response.data)
     } catch (error) {
       console.error('Error fetching data:', error);

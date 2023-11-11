@@ -40,10 +40,7 @@ const requestSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
-        dateOfRequest: {
-            type: Date,
-            required: true
-        },
+        
     },
     { timestamps: true }
 )

@@ -13,6 +13,7 @@ const createRequest = async (req, res) => {
       data: request
     });
   } catch (e) {
+    console.log(e);
     res.status(500).json({ message: e.message });
   }
 };
@@ -30,7 +31,7 @@ const getRequest = async (req, res) => {
 
 const getAllRequests = async (req, res) => {
   try {
-    const request = await RequestService.getAllRequestsOfAnUser(req.body.userId);
+    const request = await RequestService.getAllRequestsOfAnUser(req.params.userId);
     if (!request) throw Error('Request not found');
     res.status(200).json(request);
   } catch (err) {

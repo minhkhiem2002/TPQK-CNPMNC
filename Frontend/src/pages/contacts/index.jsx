@@ -50,7 +50,7 @@ function ModalBox(props) {
         const token = response.data;
         console.log(token);
         
-          await axios.get(apiUrl);
+          await axios.get(`http://localhost:3001/api/request/${userId}`);
         
       } catch (error) {
         console.error('Login failed:', error);
@@ -156,7 +156,8 @@ const Contacts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/request/');
+        const userId = localStorage.getItem('userId')
+        const response = await axios.get(`http://localhost:3001/api/request/${userId}`);
         const newData = response.data.data.map((item, index) => [
           index + 1,
           item.description,

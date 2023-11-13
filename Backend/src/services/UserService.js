@@ -10,7 +10,7 @@ const createUser = (newUser) => {
         email: email,
       });
       if (checkUser) {
-        resolve({
+        return resolve({
           status: "401",
           message: "The email is already",
         });

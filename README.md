@@ -1,3 +1,12 @@
 # tqpk
+
 none
-"# TPQK-CNPMNC" 
+"# TPQK-CNPMNC"
+
+# Installation
+
+     npm install
+
+# Run
+
+     npm run start

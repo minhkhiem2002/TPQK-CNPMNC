@@ -50,19 +50,20 @@ describe("Whole system test", () => {
         expect(res.body.message).toBe("Password or is incorrect");
       } catch (error) {}
     });
+    // Test sign up user with existed email return message "The email is already"
 
-    //     it("Create an user", async () => {
-    //       try {
-    //         const res = await request(app).post("/api/user/signup").send({
-    //           name: "Trong",
-    //           email: "Trong1@gmail.com",
-    //           password: "123456",
-    //           confirmPassword: "123456",
-    //           department: "Finance",
-    //         });
-    //         console.log(res.body);
-    //         expect(res.body.message).toBe("The email is already");
-    //       } catch (error) {}
-    //     });
+    it("Create an user", async () => {
+      try {
+        const res = await request(app).post("/api/user/signup").send({
+          name: "Trong",
+          email: "Trong1@gmail.com",
+          password: "123456",
+          confirmPassword: "123456",
+          department: "Finance",
+        });
+        console.log(res.body);
+        expect(res.body.message).toBe("The email is already");
+      } catch (error) {}
+    });
   });
 });

@@ -35,7 +35,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
     const isCheckEmail = reg.test(email);
-    console.log("hello")
+  
     if (!email || !password) {
       
       return res.status(200).json({
@@ -66,7 +66,7 @@ const updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
     const data = req.body;
-    console.log(userId);
+   
     if (!userId) {
       return res.status(200).json({
         status: 401,
@@ -102,6 +102,7 @@ const deleteUser = async (req, res) => {
 const getAllUser = async (req, res) => {
   try {
     const response = await UserService.getAllUser();
+   
     return res.status(200).json(response);
   } catch (e) {
     return res.status(404).json({
@@ -112,13 +113,16 @@ const getAllUser = async (req, res) => {
 const getDetailUser = async (req, res) => {
   try {
     const userId = req.params.id;
+   
     if (!userId) {
       return res.status(200).json({
         status: "error",
         message: "The user is required",
       });
     }
+    
     const response = await UserService.getDetailUser(userId);
+   
     return res.status(200).json(response);
   } catch (e) {
     return res.status(404).json({
@@ -126,6 +130,7 @@ const getDetailUser = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   createUser,
   loginUser,

@@ -51,6 +51,8 @@ body,
 .app {
   display: flex;
   position: relative;
+  height:150vh;
+  background-color: white!important;
 }
 
 ::-webkit-scrollbar {

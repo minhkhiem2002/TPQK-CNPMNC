@@ -33,7 +33,7 @@ const Login = () => {
       if (token.status === "401") {
         toast.error("Login Failure!");
       } else {
-        console.log(token);
+    
         localStorage.setItem("userId", token.userId);
         localStorage.setItem("role", token.role);
         toast.success("Login Success");

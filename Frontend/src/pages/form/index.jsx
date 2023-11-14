@@ -10,6 +10,7 @@ import Sidebar from "../../pages/global/Sidebar";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { backendURL } from "../../requests/endpoint";
+import './index.css'
 const Form = () => {
   const [name,setName] = useState()
   const [role, setRole] = useState()
@@ -66,57 +67,61 @@ const Form = () => {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
     <Box m="20px">
-      <Header title="Profile" subtitle="View your Persional Information" />
 
-            <Box
-              display="grid"
-              gap="30px"
-              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
-              sx={{
-                "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
-              }}
-            >
-              <TextField
-                required
-                id="outlined-required"
-                
-                value = {name}
-                onChange={(e) => setName(e.target.value)}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                
-                value = {role}
-                onChange= {(e) => setRole(e.target.value)}
-                sx={{ gridColumn: "span 2" }}
-              />
-              <TextField
-                required
-                id="outlined-required"
-                
-                value = {email}
-                onChange={(e) => setEmail(e.target.value)}
-                sx={{ gridColumn: "span 4" }}
-              />
-              
-              <TextField
-                required
-                id="outlined-required"
-               
-                value = {department}
-                onChange={e => setDepartment(e.target.value)}
-                sx={{ gridColumn: "span 4" }}
-              />
-            </Box>
+      <Header title="Profile" subtitle="View your Persional Information" />
+    <div className="form-inf">
+
+ 
+    <Box
+      display="grid"
+      gap="20px"
+      gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+    >
+      <div><strong>Name:</strong></div>
+      <TextField
+        required
+        id="outlined-required"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        sx={{ gridColumn: "span 4" }}
+      />
+
+      <div><strong>Role:</strong></div>
+      <TextField
+        required
+        id="outlined-required"
+        value={role}
+        onChange={(e) => setRole(e.target.value)}
+        sx={{ gridColumn: "span 4" }}
+      />
+
+      <div><strong>Email:</strong></div>
+      <TextField
+        required
+        id="outlined-required"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        sx={{ gridColumn: "span 4" }}
+      />
+
+      <div><strong>Department:</strong></div>
+      <TextField
+        required
+        id="outlined-required"
+        value={department}
+        onChange={(e) => setDepartment(e.target.value)}
+        sx={{ gridColumn: "span 4" }}
+      />
+    </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button onClick = {handleSubmit} color="secondary" variant="contained">
                 Update Information
               </Button>
             </Box>
+            </div>
           
     </Box>
+    
     </main>
         </div>
       </ThemeProvider>

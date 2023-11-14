@@ -53,7 +53,7 @@ const loginUser = async (userLogin) => {
     }
 
     const comparePassword = checkUser.password == password ? 1 : 0;
-    console.log(comparePassword);
+  
     if (!comparePassword) {
       return {
         status: 401,
@@ -97,7 +97,7 @@ const updateUser = async (id, data) => {
         });
       }
       const updateUser = await User.findByIdAndUpdate(id, data, { new: true });
-      console.log(updateUser);
+     
       return resolve({
         status: 200,
         message: "SUCCESS",

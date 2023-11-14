@@ -1,5 +1,31 @@
 .App {
     font-family: sans-serif;
     text-align: center;
-  }
+    background-color: white !important;
   
+  }
+.app{
+  background-color:white!important;
+  height:130vh;
+ 
+}
+.content{
+  background-color:white!important;
+ 
+}
+.create-button{
+  text-align: end;
+  padding-bottom:30px;
+}
+#request-form{
+  border-radius: 20px;
+}
+#form-dialog-title{
+  text-align: center!important;
+  font-weight: bold;
+  border-bottom:1px solid rgb(194, 194, 194);
+}
+.content{
+  margin-top:15px
+}
+

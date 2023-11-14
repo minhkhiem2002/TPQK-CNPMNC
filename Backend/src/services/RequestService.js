@@ -13,7 +13,7 @@ const getAllRequestsOfAnUser = async (userId) => {
         const user = await User.findOne({
             _id: userId
         })
-        console.log(user)
+      
         let matchCondition = [];
         if (user.role == 'user') {
             matchCondition.push({

@@ -94,14 +94,15 @@ export default function AccountMenu() {
           Settings
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-        <Link to = '/login' style = {{textDecoration: "none"}}>
-
-          Logout
-        </Link>
-        </MenuItem>
+        <Link to="/login" style={{ textDecoration: 'none' }}>
+  <MenuItem onClick={handleClose}>
+    <ListItemIcon>
+      <Logout fontSize="small" />
+    </ListItemIcon>
+    Logout
+  </MenuItem>
+</Link>
+</MenuItem>
       </Menu>
     </React.Fragment>
   );

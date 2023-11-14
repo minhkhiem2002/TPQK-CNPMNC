@@ -1,11 +1,16 @@
 .listRequest {
-    display: flex;
-    width: 80%;
+    
+    width: 100%;
+  
+}
+.manager-request{
+  padding-top:40px;
+  padding-left:4.5%
 }
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    // margin: 20px 0;
   
     th, td {
       border: 1px solid #ddd;

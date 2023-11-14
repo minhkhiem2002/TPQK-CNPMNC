@@ -11,7 +11,10 @@ import Sidebar from "../../pages/global/Sidebar";
 import { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import axios from 'axios'
+import './index.css'
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { backendURL } from "../../requests/endpoint";
+import Container from "react-bootstrap/esm/Container";
 import {
   Button,
   Select,
@@ -29,6 +32,9 @@ function ModalBox(props) {
     dname: "",
     dsource: ""
   });
+  const [show, setShow] = useState(false);
+  const [comment, setComment] = useState("");
+  const [selectedExpense, setSelectedExpense] = useState(null);
   const handleChange = name => e => {
     setState({
       ...state,
@@ -49,7 +55,7 @@ function ModalBox(props) {
     try {
         const response = await axios.post(apiUrl, datapost);
         const token = response.data;
-        console.log(token);
+   
         
           await axios.get(backendURL + `/api/request/${userId}`);
         
@@ -67,7 +73,7 @@ function ModalBox(props) {
   };
 
   return (
-    <div>
+    <div className="create-button">
       <Button variant="contained" color="primary" onClick={handleClickOpen}>
         Create New
       </Button>
@@ -75,17 +81,24 @@ function ModalBox(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        id="request-form"
       >
-        <DialogTitle id="form-dialog-title">Create Request</DialogTitle>
-        <DialogContent>
+        <DialogTitle
+      id="form-dialog-title"
+      sx={{ fontWeight: 'bold', textAlign: 'center' }}
+    >
+      Create Request
+    </DialogTitle>
+        <DialogContent className="content">
           <DialogContentText>
             To send a request please fill in the form
           </DialogContentText>
+        
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Name"
+            label="Description"
             type="text"
             value={state.dname || ""}
             onChange={handleChange("dname")}
@@ -101,16 +114,7 @@ function ModalBox(props) {
             onChange={handleChange("dsource")}
             fullWidth
           />
-          {/* <Select
-            native
-            fullWidth
-            value={state.dsource || ""}
-            onChange={handleChange("dsource")}
-          >
-            <option value="" />
-            <option value={"mssql"}>mssql</option>
-            <option value={"oracle"}>oracle</option>
-          </Select> */}
+         
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -134,42 +138,39 @@ const Contacts = () => {
   const colors = tokens(theme.palette.mode);
   const [color, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
-
+  const [show, setShow] = useState(false);
+  const [comment, setComment] = useState("");
+  const [selectedExpense, setSelectedExpense] = useState(null);
   const columns = ["Id", "Description", "Expense", "Status"];
   const [data, setData] = useState([]);
-
+  const [opendetail,setOpendetail]=useState(false)
   let id = 0;
   function createData(name, provider, status) {
     id += 1;
     return [id, name, provider, status];
   }
 
-  // useEffect(() => {
-  //   // const data = [
-  //   //   createData("Dummy1", "oracle"),
-  //   //   createData("Dummy2", "mssql"),
-  //   //   createData("Dummy3", "oracle")
-  //   // ];
-  //   // setData(data);
-  // }, []);
-  
   
   useEffect(() => {
     const fetchData = async () => {
       try {
         const userId = localStorage.getItem('userId')
         const response = await axios.get(`http://localhost:3001/api/request/${userId}`);
+        const userName = await axios.get(`http://localhost:3001/api/user/get-detail/${userId}`);
+     
+       
         const newData = response.data.data.map((item, index) => [
           index + 1,
           item.description,
           item.requestAmount,
           item.status,
         ]);
+        console.log("neww",response.data.data)
   
-        console.log("New data", newData);
+     
   
         // Cập nhật state với mảng mới
-        setData(newData);
+        setData(response.data.data);
   
         console.log("Data", data);
       } catch (error) {
@@ -179,80 +180,114 @@ const Contacts = () => {
 
     fetchData();
   }, []);
+  // const options = {
+   
+  //   filterType: "checkbox"
+  // };
+  
   const options = {
-    filterType: "checkbox"
+    customHeadRender: (columnMeta, handleToggleColumn) => {
+      return (
+        <th key={columnMeta.index} onClick={() => handleToggleColumn(columnMeta.index)}>
+          <span style={{ cursor: 'pointer', borderBottom: '2px solid black', backgroundColor: 'green' }}>
+            {columns[columnMeta.index]}
+          </span>
+        </th>
+      );
+    },
+    customBodyRender: (value, tableMeta, updateValue) => {
+      // You can add custom styling for the body cells here if needed
+      return <div style={{ padding: '8px', textAlign: 'center', backgroundColor: 'green' }}>{value}</div>;
+    },
   };
-
   const addDataSource = (dname, dsource) => {
     const updated = [...data];
     updated.push(createData(dname, dsource,"Pending"));
     setData(updated);
   };
 
+  const handleClose = () => setOpendetail(false);
+
+  const handleShow = (index) => {
+    setOpendetail(true);
+  };
+  console.log("data111",data)
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={color}>
-        <CssBaseline />
-        <div className="app">
-          <Sidebar isSidebar={isSidebar} />
-          <main className="content">
-            <Topbar setIsSidebar={setIsSidebar} />
-    <Box m="20px">
-      <Header
-        title="REQUEST"
-        subtitle="List of Request"
-      />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.grey[100]} !important`,
-          },
-        }}
-      >
-        <div className="f-height fx-column-cont">
-          <div>
-            <ModalBox
-              addDataSource={(dname, dsource) => addDataSource(dname, dsource)}
-            />
-            <MUIDataTable
-              title={"Test Source"}
-              data={data}
-              columns={columns}
-              options={options}
-            />
+    <ThemeProvider theme={color}>
+      <CssBaseline />
+      <div className="app">
+        <Sidebar isSidebar={isSidebar} />
+        <div className="content">
+          <Topbar setIsSidebar={setIsSidebar} />
+  <Box m="20px">
+
+    <Header title="YOUR REQUESTS" subtitle="View all requests" />
+  <div className="request">
+  <div className="">
+        
+               {/* <ModalBox
+                  addDataSource={(dname, dsource) => addDataSource(dname, dsource)}
+                /> 
+               <MUIDataTable 
+                
+                  data={data}
+                  columns={columns}
+                  options={options}
+                /> */}
+                
+                  <Container className="listRequest">
+          
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Expense</th>
+                <th>Date</th>
+                <th>Status</th>
+                {/* <th>Actions</th> */}
+                {/* <th>Actions</th> */}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item, index) => (
+               
+                <tr key={index}>
+                  <td>{item.description}</td>
+                  <td>{item.requestAmount}</td>
+                  <td>{new Date(item.createdAt).toLocaleDateString()}</td>
+                  <td>
+                    <TagStatus status={item.status} />
+                  </td>
+                  {/* <td>
+                        <Button
+                          variant="primary"
+                          onClick={() => handleShow(index)}
+                        >
+                          Details
+                        </Button>
+                     
+                      </td> */}
+         
+  
+                </tr>
+                
+              ))}
+            </tbody>
+          </table>
+        </Container>
+            </div>
+
+ 
           </div>
-        </div>
-      </Box>
-    </Box>
-    </main>
-        </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+        
+  </Box>
+     
+  </div>
+      </div>
+    </ThemeProvider>
+  </ColorModeContext.Provider>
+   
   );
 };
 

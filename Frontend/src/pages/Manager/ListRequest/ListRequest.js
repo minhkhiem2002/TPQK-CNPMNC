@@ -7,7 +7,7 @@ import { ColorModeContext, useMode } from "../../../theme";
 import Topbar from "../../../pages/global/Topbar";
 import Sidebar from "../../../pages/global/Sidebar";
 import AdminRequest from "../../../requests/admin-request";
-
+import Header from "../../../components/Sidebarprop/Header";
 const initialData = [
   { name: "John Doe", expense: 100, reason: "Business lunch" },
   { name: "Jane Doe", expense: 200, reason: "Office supplies" },
@@ -30,7 +30,7 @@ function ListRequest() {
   };
   const fetchRequests = async () => {
     let data = await AdminRequest.getAllRequest();
-    console.log(data);
+  
     setData(
       data.map((_record) => ({
         id: _record._id,
@@ -75,8 +75,11 @@ function ListRequest() {
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
-
+            <div className="manager-request">
+            <Header title="YOUR REQUESTS" subtitle="View all requests" />
+            </div>
             <Container className="listRequest">
+          
               <table>
                 <thead>
                   <tr>
@@ -109,6 +112,7 @@ function ListRequest() {
                 </tbody>
               </table>
             </Container>
+
 
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
@@ -150,6 +154,7 @@ function ListRequest() {
                   </Modal.Footer>
                 )}
             </Modal>
+           
           </main>
         </div>
       </ThemeProvider>

@@ -7,6 +7,7 @@ import { ColorModeContext, useMode } from "../../../theme";
 import Topbar from "../../global/Topbar";
 import Sidebar from "../../global/Sidebar";
 import FinanceRequest from "../../../requests/finance-request";
+import Header from "../../../components/Sidebarprop/Header";
 const initialData = [
   { name: "John Doe", expense: 100, reason: "Business lunch" },
   { name: "Jane Doe", expense: 200, reason: "Office supplies" },
@@ -29,7 +30,7 @@ function FRequest() {
   };
   const fetchRequests = async () => {
     let data = await FinanceRequest.getAllRequest();
-    console.log("data 123",data);
+  
     setData(
       data?.map((_record) => ({
         id: _record._id,
@@ -73,7 +74,9 @@ function FRequest() {
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
-
+            <div className="finance-request">
+            <Header title="YOUR REQUESTS" subtitle="View all requests" />
+            </div>
             <Container className="listRequest">
               <table>
                 <thead>

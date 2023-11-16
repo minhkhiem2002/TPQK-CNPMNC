@@ -7,6 +7,12 @@ const requestSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+            maxLength: 50
+        },
         description: {
             type: String,
             required: true,

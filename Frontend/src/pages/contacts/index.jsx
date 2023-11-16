@@ -25,6 +25,7 @@ import {
   TextField,
   DialogActions
 } from "@material-ui/core";
+import Box1 from "../../Box/Box1";
 function ModalBox(props) {
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
@@ -225,6 +226,7 @@ const Contacts = () => {
     <Header title="YOUR REQUESTS" subtitle="View all requests" />
   <div className="request">
   <div className="">
+              <Box1/>
         
                {/* <ModalBox
                   addDataSource={(dname, dsource) => addDataSource(dname, dsource)}

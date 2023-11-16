@@ -2,7 +2,7 @@ const Request = require('../models/RequestModel')
 const User = require('../models/UserModel')
 
 const createRequest = async (newRequest) => {
-    const { createdBy, description, requestAmount } = newRequest
+    const { createdBy,name, description, requestAmount } = newRequest
     const request = new Request(newRequest)
     await request.save();
     return request;

@@ -4,16 +4,20 @@ services:
     build:
       context: ./Backend/
       dockerfile: Dockerfile
-      target: production
+      target: dev
     ports:
       - "3001:3001"
+    volumes:
+      - ./Backend:/app
 
   front_end:
     build:
       context: ./Frontend
       dockerfile: Dockerfile
-      target: production
+      target: dev
     ports:
       - "3000:80"
     depends_on:
       - api
+    volumes:
+      - ./Frontend:/app

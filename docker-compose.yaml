@@ -1,0 +1,17 @@
+version: '2.7'
+services:
+  api:
+    build:
+      context: ./Backend/
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+
+  front_end:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api

@@ -34,4 +34,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - run: npm run build --if-present
-      - run: npm run test
+      - name: Change to directory
+        run: |
+          ls -la
+          cd ./Backend
+          npm run test

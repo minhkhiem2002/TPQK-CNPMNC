@@ -1,6 +1,13 @@
 const request = require("supertest");
-const app = require("../index.js");
+const {app, server} = require("../index.js");
+const mongoose = require("mongoose");
 describe("Whole system test", () => {
+  afterAll(done => {
+    // Closing the DB connection allows Jest to exit successfully.
+    mongoose.connection.close()
+    server.close()
+    done()
+  })
   describe("Test Request Routes", () => {
     // Test get all request return message "Success"
     it("Get all requests of an user", async () => {
@@ -67,3 +74,4 @@ describe("Whole system test", () => {
     });
   });
 });
+

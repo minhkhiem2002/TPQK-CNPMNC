@@ -1,7 +1,4 @@
 import { Box, Button, TextField } from "@mui/material";
-import { Formik } from "formik";
-import * as yup from "yup";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Sidebarprop/Header";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../../theme";
@@ -49,13 +46,7 @@ const Form = () => {
       console.error('Error fetching data:', error);
     }
   }
-  const isNonMobile = useMediaQuery("(min-width:600px)");
-
-  const handleFormSubmit =  (values) => {
-
-    console.log(values);
-
-  };
+  
   const [color, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   return (

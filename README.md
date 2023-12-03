@@ -1,6 +1,5 @@
 # tqpk
 
-none
 "# TPQK-CNPMNC"
 
 # Installation

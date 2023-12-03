@@ -3,8 +3,6 @@ import './HomePage.scss'
 import Header from '../Header/Header'
 import Container from 'react-bootstrap/Container';
 import { Button, Form, Input } from "antd";
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import TextArea from 'rc-textarea';
 import axios from 'axios';
 
